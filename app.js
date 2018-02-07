@@ -16,7 +16,7 @@ var priceRef = database.ref("/price");
 
 var map;
 var infoWindow;
-var locationInput;
+var location;
 var topic;
 var price;
 
@@ -102,11 +102,11 @@ function initMap() {
         });
 
         map.fitBounds(bounds);
-        locationInput = $("#pac-input").val().trim();
+        location = $("#pac-input").val().trim();
         console.log($("#pac-input").val());
 
         database.ref("/locations").push({
-            location: locationInput
+            location: location
         })
 
     })
