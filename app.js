@@ -130,3 +130,57 @@ function getInfoContent(place) {
         "Rating: " + place.rating + '<br>'
     '</div>';
 }
+
+
+//Eventbrite
+
+
+function evenbriteSearch(){     //Requesting info and adding the value of the button to the url
+    //https://www.eventbriteapi.com/v3/events/search/?location.address=san+francisco&location.within=30mi&token=KJSHU43DGDL7JI6OFUYJ
+    var queryURL = "https://www.eventbriteapi.com/v3/events/search/?q="+topic+"&sort_by=date&location.address="+location+"&location.within="+range+"mi&price="+price+"&token=KJSHU43DGDL7JI6OFUYJ";
+    $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+  .then(function(response) {
+        
+        console.log(response);
+    });
+}
+
+var topic="";
+
+$(".topic").on("click",function(){
+    topic=$(this).val();
+    console.log(topic)
+
+    database.ref("/topics").push({
+        topic: topic
+    })
+})
+
+var range="";
+
+$(".range").on("click",function(){
+    topic=$(this).val();
+    console.log(range)
+
+    database.ref("/range").push({
+        range: range
+    })
+})
+
+var price="";
+
+$(".price").on("click",function(){
+    price=$(this).val();
+    console.log(price)
+
+    database.ref("/price").push({
+        price: price
+    })
+
+    evenbriteSearch();
+})
+
+
