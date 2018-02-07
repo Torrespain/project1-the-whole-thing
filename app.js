@@ -111,3 +111,22 @@ function initMap() {
 
     })
 };
+
+
+function getInfoContent(place) {
+    var isOpen;
+    if (place.opening_hours.open_now) {
+        isOpen = "Open";
+    } else {
+        isOpen = "Closed";
+    }
+
+    var openHours = place.opening_hours.weekday_text;
+
+    return '<div><strong>' + place.name + '</strong><br>' +
+        place.formatted_address + '<br>' +
+        isOpen + '<br>' +
+        openHours + '<br>' +
+        "Rating: " + place.rating + '<br>'
+    '</div>';
+}
