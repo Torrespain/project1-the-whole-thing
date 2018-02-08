@@ -22,32 +22,26 @@
             <h3>Fun Engine</h3>
             <h3>Power Up Your Plan</h3>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <button id="quick-search" type="button" class="btn btn-secondary">Quick Search (Use current location)</button>
-        </div>
-        <div class="col-md-4">
-            <button id="loc-search" type="button" class="btn btn-secondary">Type where you want to go</button>
-        </div>
-
-        <div class="col-md-4">
-            <a href="places-search.html" target="_blank"><button id="go-to-search" type="button" class="btn btn-secondary">Go To Search</button></a>
-        </div>
- 
-    </div>
-
-    <br>
-
-
-    <div id="map-space">
-        <input id="pac-input" class="controls" type="text" placeholder="Where do you want to go?">
-        <div id="map"></div>
-    </div>
-
-
     
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <button id="quick-search" type="button" class="btn btn-secondary">See events in your current location now!</button>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <a href="places-search.html" target="_blank"><button id="search-filter" type="button" class="btn btn-secondary">Enter more details to search for events!</button></a>
+            </div>
+        </div>
+
+        <br>
+
+        <div id="map-space" class="col-xs-12 col-sm-12 col-md-12">
+            <input id="pac-input" class="controls" type="text" placeholder="Where do you want to go?">
+            <div id="map"></div>
+        </div>
+
+    </div>
+
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpyQP6rc0eC3wqaGZ9gXnUxQ6bKja4rd0&libraries=places,geometry&callback=initMap" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
