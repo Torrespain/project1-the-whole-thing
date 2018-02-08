@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>The Whole Thing</h1>
+            <h3>Fun Engine</h3>
+            <h3>Power Up Your Plan</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Price
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="price" data-value="free">Free</a></li>
+                        <li><a href="#" class="price" data-value="paid">Paid</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+
+            <div class="col-sm-3">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Distance
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="range" data-value="3">Walking</a></li>
+                        <li><a href="#" class="range" data-value="30">Driving</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="row">
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                      <img class= "topic" id ="food" data-value = "food" src="assets/images/burger.png" alt = "food" height="160px" width="230px">
+                    </a>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                      <img class= "topic" id ="drinks" data-value = "drinks" src="assets/images/beer.png" alt = "drinks" height="160px" width="230px">
+                    </a>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                      <img class= "topic" id ="comedy" data-value = "comedy" src="assets/images/comedy.png" alt = "comedy"  height="160px" width="230px">
+                    </a>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                      <img class= "topic" id ="expo" data-value = "expo" src="assets/images/expo.png" alt = "expo" height="160px" width="230px">
+                    </a>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                      <img class= "topic" id ="popular" data-value = "popular" src="assets/images/popular.png" alt = "popular" height = "160px" width="230px">
+                    </a>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                      <img class= "topic" id ="popular" data-value = "music" src="assets/images/music.png" alt = "music" height = "180px" width="230px">
+                    </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="map-space">
+        <input id="pac-input" class="controls" type="text" placeholder="Where do you want to go?">
+        <div id="map"></div>
+    </div>
+
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpyQP6rc0eC3wqaGZ9gXnUxQ6bKja4rd0&libraries=places,geometry&callback=initMap" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="testapp2.js"></script>
+</body>
+
+</html>
