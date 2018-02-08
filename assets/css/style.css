@@ -2,9 +2,6 @@
 /* Always set the map height explicitly to define the size of the div
    * element that contains the map. */
 
-/* Optional: Makes the sample page fill the window. */
-
-
 body {
     background-image: url("assets/images/sky.jpg");
     background-repeat: no-repeat;
@@ -26,23 +23,41 @@ body {
 }
 
 #quick-search {
-    margin-left: 150px;
+    /*margin-left: 170px;*/
+    width: 450px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    background-color: #A9E5FF;
+    color: #fff;
+}
+
+#search-filter {
+    width: 450px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    background-color: #fff;
+    color: #A9E5FF;
 }
 
 #map-space {
     vertical-align: middle;
     text-align: center;
+    margin-top: 50px;
+    height: 500px;
 }
 
 #map {
-    height: 50%;
-    width: 50%;
+    height: 75%;
+    width: 75%;
     position: absolute;
     z-index: 5;
     margin-left: 150px;
     margin-bottom: 100px;
 }
-
 
 #description {
     font-family: Roboto;
@@ -58,7 +73,6 @@ body {
     display: none;
 }
 
-
 #map #infowindow-content {
     display: inline;
 }
@@ -72,7 +86,7 @@ body {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     background-color: #fff;
     font-family: Roboto;
-        position: absolute;
+    position: absolute;
     z-index: 5;
 }
 
@@ -97,12 +111,13 @@ body {
 #pac-input {
     background-color: #fff;
     font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
-    margin-left: 50px;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 10px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 200px;
+    width: 750px;
     height: 50px;
 }
 
@@ -120,4 +135,13 @@ body {
 
 #target {
     width: 345px;
+}
+
+#filter-search {
+    position: absolute;
+    margin: 550px 0px 0px 400px;
+    text-align: center;
+    width: 500px;
+    height: 80px;
+    font-size: 30px;
 }
