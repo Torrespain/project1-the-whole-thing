@@ -1,39 +1,30 @@
-   // Initialize Firebase
-  var config = {
+// Initialize Firebase
+var config = {
     apiKey: "AIzaSyBEagO1eUpMcdMCAnHawJnZqjRRF29fgd4",
     authDomain: "project-1-65a27.firebaseapp.com",
     databaseURL: "https://project-1-65a27.firebaseio.com",
     projectId: "project-1-65a27",
     storageBucket: "project-1-65a27.appspot.com",
     messagingSenderId: "185964613097"
-  };
-  firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
 var database = firebase.database();
 var locationRef = database.ref("/locations");
 var topicRef = database.ref("/topics");
+var rangeRef = database.ref("/range");
 var priceRef = database.ref("/price");
+var resultRef = database.ref("/result");
+
 
 var map;
 var infoWindow;
-var location;
+var locationInput;
 var topic;
+var range;
 var price;
+var responseResult;
 
-
-
-// $("#quick-search").on("click", function() {
-//     findCurrentLocation();
-//     $("#map").hide();
-// });
-
-// $("#loc-search").on("click", function() {
-//     $("#map").show();
-// })
-
-$(document).ready(function() {
-    $("#map").show();
-} )
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
@@ -42,31 +33,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
 }
-
-
-function findCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            console.log(pos);
-            console.log(pos.lat);
-            console.log(pos.lng);
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('You are here');
-            infoWindow.open(map);
-            map.setCenter(pos);
-        }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-        });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
-}
-
 
 
 function initMap() {
@@ -78,16 +44,17 @@ function initMap() {
         mapTypeId: "roadmap"
     });
     infoWindow = new google.maps.InfoWindow;
-    // Find current location and center the map there
-    // findCurrentLocation();
+
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());
     });
+
     var markers = [];
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
@@ -123,6 +90,7 @@ function initMap() {
                 position: place.geometry.location
             });
             markers.push(marker);
+
             var infowindow = new google.maps.InfoWindow();
             google.maps.event.addListener(marker, 'click', function() {
                 infowindow.setContent(getInfoContent(place));
@@ -136,9 +104,16 @@ function initMap() {
                 bounds.extend(place.geometry.location);
             }
         });
+
         map.fitBounds(bounds);
+        locationInput = $("#pac-input").val().trim();
+        console.log($("#pac-input").val().trim());
+        database.ref("/locations").push({
+            locationInput: locationInput
+        })
     });
 }
+
 function getInfoContent(place) {
     var isOpen;
     if (place.opening_hours.open_now) {
@@ -159,59 +134,29 @@ function getInfoContent(place) {
 // //Eventbrite
 
 
-// This function will be called after pressing Quick Search bttn, it will use latitude and longitude from Maps API
-function quickSearch(latitude, longitude){ 
-
-    //https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.latitude=37.784373&location.longitude=-122.407705&token=KJSHU43DGDL7JI6OFUYJ
-    var latitudeLongitude = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.latitude="+latitude+"&location.longitude="+longitude+"&token=KJSHU43DGDL7JI6OFUYJ";
-    $.ajax({
-    url: latitudeLongitude,
-    method: "GET"
-  })
-  .then(function(response) {
-        console.log(response);
-    });
-}
-
-function evenbriteSearch(){     //Requesting info and adding the value of every button to the url
-
-    var queryURL = "https://www.eventbriteapi.com/v3/events/search/?q="+topic+"&sort_by=date&location.address="+location+"&location.within="+range+"&price="+price+"&token=KJSHU43DGDL7JI6OFUYJ";
-    $.ajax({
-    url: queryURL,
-    method: "GET"
-  })
-  .then(function(response) {
-        console.log(response);
-    });
-}
-
-var topic="";
-
-$(".topic").on("click",function(){
-    topic=$(this).val();
-    console.log(topic)
+$(".topic").on("click", function() {
+    topic = $(this).data("value");
+    console.log(topic);
 
     database.ref("/topics").push({
         topic: topic
     })
 })
 
-var range="";
 
-$(".range").on("click",function(){
-    range=$(this).val()+"mi";
-    console.log(range)
+$(".range").on("click", function() {
+    range = $(this).data("value") + "mi";
+    console.log(range);
 
     database.ref("/range").push({
         range: range
     })
 })
 
-var price="";
 
-$(".price").on("click",function(){
-    price=$(this).val();
-    console.log(price)
+$(".price").on("click", function() {
+    price = $(this).data("value");
+    console.log(price);
 
     database.ref("/price").push({
         price: price
@@ -219,4 +164,43 @@ $(".price").on("click",function(){
 })
 
 
+
+$("#filter-search").on("click", function(e) {
+    e.preventDefault()
+    evenbriteSearch(topic, locationInput, range, price);
+})
+
+
+//Requesting info and adding the value of every button to the url
+function evenbriteSearch(topic, locationInput, range, price) { 
+   var queryURL = "https://www.eventbriteapi.com/v3/events/search/?q=" + topic + "&sort_by=date&location.address=" + locationInput + "&location.within=" + range + "&price=" + price + "&token=KJSHU43DGDL7JI6OFUYJ";
+   $.ajax({
+           url: queryURL,
+           method: "GET"
+       })
+       .then(function(response) {
+           console.log(response);
+
+           responseResult = response;
+               
+            database.ref("/result").push({
+                result: response
+            })
+       });
+}
+
+
+
+
+function renderResults() {
+    database.ref("/result").on('value', function(snap){
+        console.log(snap.val())
+        
+    })
+    for (var i = 0; i<5; i++) {
+       var result = $("<img>");
+       result.attr("src", responseResult.events[i].logo.url);
+       $("#results").append(result);
+    }
+}
 
