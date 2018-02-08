@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>The Whole Thing</h1>
+            <h3>Fun Engine</h3>
+            <h3>Power Up Your Plan</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <button id="quick-search" type="button" class="btn btn-secondary">Quick Search (Use current location)</button>
+        </div>
+        <div class="col-md-4">
+            <button id="loc-search" type="button" class="btn btn-secondary">Type where you want to go</button>
+        </div>
+
+        <div class="col-md-4">
+            <a href="places-search.html" target="_blank"><button id="go-to-search" type="button" class="btn btn-secondary">Go To Search</button></a>
+        </div>
+ 
+    </div>
+
+    <br>
+
+
+    <div id="map-space">
+        <input id="pac-input" class="controls" type="text" placeholder="Where do you want to go?">
+        <div id="map"></div>
+    </div>
+
+
+    
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpyQP6rc0eC3wqaGZ9gXnUxQ6bKja4rd0&libraries=places,geometry&callback=initMap" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="testapp.js"></script>
+</body>
+
+</html>
