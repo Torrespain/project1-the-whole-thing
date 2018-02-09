@@ -132,8 +132,6 @@ function getInfoContent(place) {
 
 
 // //Eventbrite
-
-
 $(".topic").on("click", function() {
     topic = $(this).data("value");
     console.log(topic);
@@ -164,7 +162,6 @@ $(".price").on("click", function() {
 })
 
 
-
 $("#filter-search").on("click", function(e) {
     e.preventDefault()
     evenbriteSearch(topic, locationInput, range, price);
@@ -172,35 +169,29 @@ $("#filter-search").on("click", function(e) {
 
 
 //Requesting info and adding the value of every button to the url
-function evenbriteSearch(topic, locationInput, range, price) { 
-   var queryURL = "https://www.eventbriteapi.com/v3/events/search/?q=" + topic + "&sort_by=date&location.address=" + locationInput + "&location.within=" + range + "&price=" + price + "&token=KJSHU43DGDL7JI6OFUYJ";
-   $.ajax({
-           url: queryURL,
-           method: "GET"
-       })
-       .then(function(response) {
-           console.log(response);
-
-           responseResult = response;
-               
+function evenbriteSearch(topic, locationInput, range, price) {
+    var queryURL = "https://www.eventbriteapi.com/v3/events/search/?q=" + topic + "&sort_by=date&location.address=" + locationInput + "&location.within=" + range + "&price=" + price + "&token=KJSHU43DGDL7JI6OFUYJ";
+    $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+        .then(function(response) {
+            console.log(response);
+            responseResult =response;
+    
             database.ref("/result").push({
                 result: response
             })
-       });
+
+            renderResults();
+        });
 }
-
-
 
 
 function renderResults() {
-    database.ref("/result").on('value', function(snap){
-        console.log(snap.val())
-        
-    })
-    for (var i = 0; i<5; i++) {
-       var result = $("<img>");
-       result.attr("src", responseResult.events[i].logo.url);
-       $("#results").append(result);
+    for (var i = 0; i < 5; i++) {
+        var result = $("<img>");
+        result.attr("src", responseResult.events[i].logo.url);
+        $("#myModal").append(result);
     }
 }
-
