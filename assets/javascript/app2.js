@@ -137,8 +137,6 @@ var choiceA = "";
 var choiceB = "";
 var and = "";
 $(".thumbnail").on("click", function compare() {
-    console.log("Fuck!")
-    console.log(counter)
     event.preventDefault();
     if (counter === 0 && choiceB !== $(this).data("value")) {
         choiceA = $(this).data("value");
@@ -146,7 +144,7 @@ $(".thumbnail").on("click", function compare() {
         counter++
     } else if (counter === 1 && choiceA !== $(this).data("value")) {
         choiceB = $(this).data("value");
-        and = "&";
+        and = "+";
         counter = 0;
     }
     console.log("thisisA", choiceA);
