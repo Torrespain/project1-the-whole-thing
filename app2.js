@@ -211,7 +211,7 @@ function gifSearch(){
     data: {
       client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
       client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
-      ll:"37.77,122.42",
+      ll:"37.77,-122.42",
       query: "",
       v:"20180206",
       limit: 3
