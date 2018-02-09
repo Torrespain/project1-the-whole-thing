@@ -17,10 +17,10 @@
 <body>
 
     <div class="container">
-        <div class="jumbotron">
-            <h1>The Whole Thing</h1>
-            <h3>Fun Engine</h3>
-            <h3>Power Up Your Plan</h3>
+        <div class="jumbotron" id="first-jumbo">
+            <h1><b>The Whole Thing</b></h1>
+            <h2><b>Fun Engine</b></h2>
+            <h2><b>Power Up Your Plan</b></h2>
         </div>
     
 
@@ -28,6 +28,7 @@
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <button id="quick-search" type="button" class="btn btn-secondary">See events in your current location now!</button>
             </div>
+
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <a href="places-search.html" target="_blank"><button id="search-filter" type="button" class="btn btn-secondary">Enter more details to search for events!</button></a>
             </div>
@@ -35,9 +36,11 @@
 
         <br>
 
-        <div id="map-space" class="col-xs-12 col-sm-12 col-md-12">
-            <input id="pac-input" class="controls" type="text" placeholder="Where do you want to go?">
-            <div id="map"></div>
+        <div class="row">
+            <div  id="map-space" class="col-xs-12 col-sm-12 col-md-12">
+                    <input id="pac-input" class="controls" type="text" placeholder="Where do you want to go?">
+                    <div id="map"></div>
+            </div>
         </div>
 
     </div>
@@ -45,7 +48,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpyQP6rc0eC3wqaGZ9gXnUxQ6bKja4rd0&libraries=places,geometry&callback=initMap" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="testapp.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 </body>
 
 </html>

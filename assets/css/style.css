@@ -9,6 +9,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 }
 
 .jumbotron {
@@ -20,24 +21,30 @@ body {
     background-attachment: fixed;
     background-position: center;
     opacity: 0.5;
+    color: #000;
+    font-weight: 900;
+}
+
+#first-jumbo {
+    margin-top: 150px;
 }
 
 #quick-search {
-    /*margin-left: 170px;*/
-    width: 450px;
+    width: 550px;
     height: 50px;
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 22px;
+    font-weight: 500;
     text-align: center;
     background-color: #A9E5FF;
     color: #fff;
+    opacity: 1.0;
 }
 
 #search-filter {
-    width: 450px;
+    width: 550px;
     height: 50px;
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 22px;
+    font-weight: 500;
     text-align: center;
     background-color: #fff;
     color: #A9E5FF;
@@ -52,15 +59,15 @@ body {
 
 #map {
     height: 75%;
-    width: 75%;
-    position: absolute;
+    width: 60%;
+    position: relative;
     z-index: 5;
-    margin-left: 150px;
+    margin-left: 225px;
     margin-bottom: 100px;
+    border-radius: 10px;
 }
 
 #description {
-    font-family: Roboto;
     font-size: 15px;
     font-weight: 300;
 }
@@ -85,7 +92,6 @@ body {
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     background-color: #fff;
-    font-family: Roboto;
     position: absolute;
     z-index: 5;
 }
@@ -93,7 +99,7 @@ body {
 #pac-container {
     padding-bottom: 12px;
     margin-right: 12px;
-        position: absolute;
+    position: absolute;
     z-index: 5;
 }
 
@@ -103,22 +109,21 @@ body {
 }
 
 .pac-controls label {
-    font-family: Roboto;
     font-size: 13px;
     font-weight: 300;
 }
 
 #pac-input {
     background-color: #fff;
-    font-family: Roboto;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 500;
     text-align: center;
     margin-bottom: 10px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 750px;
+    width: 600px;
     height: 50px;
+    border-radius: 15px;
 }
 
 #pac-input:focus {
@@ -139,9 +144,121 @@ body {
 
 #filter-search {
     position: absolute;
-    margin: 550px 0px 0px 400px;
+    margin: 10px 0px 100px 0px;
     text-align: center;
-    width: 500px;
-    height: 80px;
+    width: 400px;
+    height: 50px;
     font-size: 30px;
 }
+
+#price-label {
+    display: inline-block;
+    float: right;
+    padding: 6px 12px;
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 1.43;
+    text-align: center;
+    margin: 0px;
+    width: 220px;
+    color: #72FFBF;
+    border: 3px solid;
+}
+
+#distance-label {
+    display: inline-block;
+    float: left;
+    padding: 6px 12px;
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 1.43;
+    text-align: center;
+    margin: 0px;
+    width: 220px;
+    color: #FDB2FF;
+    border: 3px solid;
+}
+
+#price {
+    display: inline-block;
+    float: right;
+}
+
+.price {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    width: 110px;
+}
+
+.range {
+    display: inline-block;
+    float: left;
+    font-size: 20px;
+    font-weight: 500;
+    width: 110px;
+    background-color: #6B6BF4;
+    color: #fff;
+    border: 1px solid #6B80F4;
+}
+
+.topic {
+    opacity: 1;
+    display: block;
+    width: 180px;
+    height: 150px;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#images:hover .topic {
+  opacity: 0.3;
+}
+
+#images:hover .middle {
+  opacity: 1;
+}
+
+.text {
+    color: #000;
+    font-size: 35px;
+    font-weight: 500;
+    padding: 16px 32px;
+    border-radius: 10px;
+}
+
+#image-text1 {
+    background-color: #F4AB6B;
+}
+
+#image-text2 {
+    background-color: #EFDB7F;
+}
+
+#image-text3 {
+    background-color: #8472FF;
+}
+
+#image-text4 {
+    background-color: #FF2D00;
+}
+
+#image-text5 {
+    background-color: #A0EFB2;
+}
+
+#image-text6 {
+    background-color: #7EE9FF;
+}
+
