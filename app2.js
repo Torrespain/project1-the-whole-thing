@@ -16,7 +16,6 @@ var rangeRef = database.ref("/range");
 var priceRef = database.ref("/price");
 var resultRef = database.ref("/result");
 
-
 var map;
 var infoWindow;
 var locationInput;
@@ -108,6 +107,7 @@ function initMap() {
         map.fitBounds(bounds);
         locationInput = $("#pac-input").val().trim();
         console.log($("#pac-input").val().trim());
+
         database.ref("/locations").push({
             locationInput: locationInput
         })
@@ -133,24 +133,23 @@ function getInfoContent(place) {
 
 // //Eventbrite
 var counter = 0;
-var choiceA ="";
-var choiceB="";
-var and="";
-$(".topic").on("click",function compare(){
+var choiceA = "";
+var choiceB = "";
+var and = "";
+$(".topic").on("click", function compare() {
     event.preventDefault();
-    if(counter===0 && choiceB!==$(this).data("value")){
-        choiceA = $(this).data("value");  
-       console.log("helo",this)
+    if (counter === 0 && choiceB !== $(this).data("value")) {
+        choiceA = $(this).data("value");
+        console.log("helo", this)
         counter++
-    }
-    else if(counter===1  && choiceA!==$(this).data("value") ){
+    } else if (counter === 1 && choiceA !== $(this).data("value")) {
         choiceB = $(this).data("value");
-        and="&";
-        counter=0;
+        and = "&";
+        counter = 0;
     }
-    console.log("thisisA",choiceA);
-    console.log("thisisB",choiceB);
-    topic = choiceA+and+choiceB;
+    console.log("thisisA", choiceA);
+    console.log("thisisB", choiceB);
+    topic = choiceA + and + choiceB;
     console.log(topic);
     database.ref("/topics").push({
         topic: topic
@@ -193,8 +192,8 @@ function evenbriteSearch(topic, locationInput, range, price) {
         })
         .then(function(response) {
             console.log(response);
-            responseResult =response;
-    
+            responseResult = response;
+
             database.ref("/result").push({
                 result: response
             })
@@ -209,91 +208,92 @@ function renderResults() {
         var eventName = $("<h2>");
         eventName.text(responseResult.events[i].name.text)
         var eventImage = $("<img>");
-        eventImage.attr("src", responseResult.events[i].logo.url); 
+        eventImage.attr("src", responseResult.events[i].logo.url);
         var eventDescript = $("<p>");
         eventDescript.text("Description: " + responseResult.events[i].description.text)
         eventDescript.hide()
-        $("#myModal").append(eventName, eventImage, eventDescript); console.log("abc")
-        
+        $("#myModal").append(eventName, eventImage, eventDescript);
+        console.log("abc")
+
     }
 }
 
 //Foursquare API and append functions
 //Call function gifSearch() to execute, assing searchTerm and location
-function gifSearch(){
-  var queryURL = "https://api.foursquare.com/v2/venues/search" ;
-  $.ajax({
-    url: queryURL,
-    data: {
-      client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
-      client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
-      ll:"37.77,-122.42",
-      query: "",
-      v:"20180206",
-      limit: 3
-    },
-    cache: false,
-    type: "GET",
-    success: function(response) {
-      console.log(response);
-      getImages(response);
-      appendFourSquare(response);
-    },
-    error: function(xhr) {
-      console.log(xhr);
-    } 
-  });
+function gifSearch() {
+    var queryURL = "https://api.foursquare.com/v2/venues/search";
+    $.ajax({
+        url: queryURL,
+        data: {
+            client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
+            client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
+            ll: "37.77,-122.42",
+            query: "",
+            v: "20180206",
+            limit: 3
+        },
+        cache: false,
+        type: "GET",
+        success: function(response) {
+            console.log(response);
+            getImages(response);
+            appendFourSquare(response);
+        },
+        error: function(xhr) {
+            console.log(xhr);
+        }
+    });
 };
 
+
 function getImages(responseObj) {
-  var photoId =responseObj.response.venues[0].id;
-  var queryURL = "https://api.foursquare.com/v2/venues/"+photoId+"/photos" ;
-  $.ajax({
-    url: queryURL,
-    data: { 
-      client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH", 
-      client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF", 
-      v:"20180206",
-      limit: 3
-    },
-    cache: false,
-    type: "GET", 
-    success: function(photoResponse) {
-      console.log(photoResponse);       
-      appendImages(photoResponse);
-    },
-    error: function(xhr) {
-      console.log(xhr);
-    }               
-  });
+    var photoId = responseObj.response.venues[0].id;
+    var queryURL = "https://api.foursquare.com/v2/venues/" + photoId + "/photos";
+    $.ajax({
+        url: queryURL,
+        data: {
+            client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
+            client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
+            v: "20180206",
+            limit: 3
+        },
+        cache: false,
+        type: "GET",
+        success: function(photoResponse) {
+            console.log(photoResponse);
+            appendImages(photoResponse);
+        },
+        error: function(xhr) {
+            console.log(xhr);
+        }
+    });
 
-  function appendImages(arrOfPhotos){
-    console.log(arrOfPhotos)
-    for (var i = 0; i < 3; i++) {
-      var photoPrefix =arrOfPhotos.response.photos.items[i].prefix;
-      var photoSize = "400x300";
-      var photoSuffix =arrOfPhotos.response.photos.items[i].suffix;
-      var photoURL = photoPrefix+photoSize+photoSuffix;
-      var fourSquarePhoto = $("<img>"); 
-      fourSquarePhoto.attr("src", photoURL);
-      fourSquarePhoto.attr("");
-      $("#imgTarget"+i).append(fourSquarePhoto);
+    function appendImages(arrOfPhotos) {
+        console.log(arrOfPhotos)
+        for (var i = 0; i < 3; i++) {
+            var photoPrefix = arrOfPhotos.response.photos.items[i].prefix;
+            var photoSize = "400x300";
+            var photoSuffix = arrOfPhotos.response.photos.items[i].suffix;
+            var photoURL = photoPrefix + photoSize + photoSuffix;
+            var fourSquarePhoto = $("<img>");
+            fourSquarePhoto.attr("src", photoURL);
+            fourSquarePhoto.attr("");
+            $("#imgTarget" + i).append(fourSquarePhoto);
+        }
     }
-  }
-}
-
-function appendFourSquare(responseData){
-  for (var i = 0; i < 3; i++) {  
-    console.log(responseData.response.venues[i].name);
-    $("#fourSquareResults").append("<h2>"+responseData.response.venues[i].name+"</h2>");
-    $("#fourSquareResults").append("<p>"+responseData.response.venues[i].location.address+", "+responseData.response.venues[i].location.city+"</p>");
-    $("#fourSquareResults").append("<p>"+"Phone: "+responseData.response.venues[i].contact.formattedPhone+"</p>");
-    var imgTarget=$("<p>");
-    imgTarget.attr("id", ('imgTarget' + i));
-    $("#fourSquareResults").append(imgTarget);
-    console.log("abc");
-
-  }
 }
 
 
+function appendFourSquare(responseData) {
+    for (var i = 0; i < 3; i++) {
+        console.log(responseData.response.venues[i].name);
+        $("#fourSquareResults").append("<h2>" + responseData.response.venues[i].name + "</h2>");
+        $("#fourSquareResults").append("<p>" + responseData.response.venues[i].location.address + ", " + responseData.response.venues[i].location.city + "</p>");
+        $("#fourSquareResults").append("<p>" + "Phone: " + responseData.response.venues[i].contact.formattedPhone + "</p>");
+        var imgTarget = $("<p>");
+        imgTarget.attr("id", ('imgTarget' + i));
+        $("#fourSquareResults").append(imgTarget);
+        console.log("abc");
+
+    }
+}
