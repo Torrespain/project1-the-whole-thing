@@ -132,14 +132,30 @@ function getInfoContent(place) {
 
 
 // //Eventbrite
-$(".topic").on("click", function() {
-    topic = $(this).data("value");
+var counter = 0;
+var choiceA ="";
+var choiceB="";
+var and="";
+$(".topic").on("click",function compare(){
+    event.preventDefault();
+    if(counter===0 && choiceB!==$(this).data("value")){
+        choiceA = $(this).data("value");  
+       console.log("helo",this)
+        counter++
+    }
+    else if(counter===1  && choiceA!==$(this).data("value") ){
+        choiceB = $(this).data("value");
+        and="&";
+        counter=0;
+    }
+    console.log("thisisA",choiceA);
+    console.log("thisisB",choiceB);
+    topic = choiceA+and+choiceB;
     console.log(topic);
-
     database.ref("/topics").push({
         topic: topic
     })
-})
+});
 
 
 $(".range").on("click", function() {
@@ -205,7 +221,7 @@ function gifSearch(){
     data: {
       client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
       client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
-      ll:"37.77,122.42",
+      ll:"37.77,-122.42",
       query: "",
       v:"20180206",
       limit: 3
