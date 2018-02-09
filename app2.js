@@ -206,9 +206,15 @@ function evenbriteSearch(topic, locationInput, range, price) {
 
 function renderResults() {
     for (var i = 0; i < 5; i++) {
-        var result = $("<img>");
-        result.attr("src", responseResult.events[i].logo.url);
-        $("#myModal").append(result);
+        var eventName = $("<h2>");
+        eventName.text(responseResult.events[i].name.text)
+        var eventImage = $("<img>");
+        eventImage.attr("src", responseResult.events[i].logo.url); 
+        var eventDescript = $("<p>");
+        eventDescript.text("Description: " + responseResult.events[i].description.text)
+        eventDescript.hide()
+        $("#myModal").append(eventName, eventImage, eventDescript); console.log("abc")
+        
     }
 }
 
