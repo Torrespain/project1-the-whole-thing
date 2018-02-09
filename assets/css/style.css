@@ -3,7 +3,7 @@
    * element that contains the map. */
 
 body {
-    background-image: url("assets/images/sky.jpg");
+    background-image: url("../images/sky.jpg");
     background-repeat: no-repeat;
     background-size: 200%;
     height: 100%;
@@ -142,15 +142,6 @@ body {
     width: 345px;
 }
 
-#filter-search {
-    position: absolute;
-    margin: 10px 0px 100px 0px;
-    text-align: center;
-    width: 400px;
-    height: 50px;
-    font-size: 30px;
-}
-
 #price-label {
     display: inline-block;
     float: right;
@@ -262,3 +253,12 @@ body {
     background-color: #7EE9FF;
 }
 
+#filter-search {
+    position: absolute;
+    margin: 10px 0px 50px 0px;
+    text-align: center;
+    width: 220px;
+    height: 100px;
+    font-size: 30px;
+    border-radius: 50%;
+}
