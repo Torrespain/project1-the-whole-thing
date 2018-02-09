@@ -19,7 +19,7 @@ var locationInput;
 
 
 $(document).ready(function() {
-   $("#map").hide();
+   $("#map-space").hide();
 })
 
 
