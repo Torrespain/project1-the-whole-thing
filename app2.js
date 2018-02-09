@@ -195,3 +195,83 @@ function renderResults() {
         $("#myModal").append(result);
     }
 }
+
+//Foursquare API and append functions
+//Call function gifSearch() to execute, assing searchTerm and location
+function gifSearch(){
+  var queryURL = "https://api.foursquare.com/v2/venues/search" ;
+  $.ajax({
+    url: queryURL,
+    data: {
+      client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
+      client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
+      ll:"37.77,122.42",
+      query: "",
+      v:"20180206",
+      limit: 3
+    },
+    cache: false,
+    type: "GET",
+    success: function(response) {
+      console.log(response);
+      getImages(response);
+      appendFourSquare(response);
+    },
+    error: function(xhr) {
+      console.log(xhr);
+    } 
+  });
+};
+
+function getImages(responseObj) {
+  var photoId =responseObj.response.venues[0].id;
+  var queryURL = "https://api.foursquare.com/v2/venues/"+photoId+"/photos" ;
+  $.ajax({
+    url: queryURL,
+    data: { 
+      client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH", 
+      client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF", 
+      v:"20180206",
+      limit: 3
+    },
+    cache: false,
+    type: "GET", 
+    success: function(photoResponse) {
+      console.log(photoResponse);       
+      appendImages(photoResponse);
+    },
+    error: function(xhr) {
+      console.log(xhr);
+    }               
+  });
+
+  function appendImages(arrOfPhotos){
+    console.log(arrOfPhotos)
+    for (var i = 0; i < 3; i++) {
+      var photoPrefix =arrOfPhotos.response.photos.items[i].prefix;
+      var photoSize = "400x300";
+      var photoSuffix =arrOfPhotos.response.photos.items[i].suffix;
+      var photoURL = photoPrefix+photoSize+photoSuffix;
+      var fourSquarePhoto = $("<img>"); 
+      fourSquarePhoto.attr("src", photoURL);
+      fourSquarePhoto.attr("");
+      $("#imgTarget"+i).append(fourSquarePhoto);
+    }
+  }
+}
+
+function appendFourSquare(responseData){
+  for (var i = 0; i < 3; i++) {  
+    console.log(responseData.response.venues[i].name);
+    $("#fourSquareResults").append("<h2>"+responseData.response.venues[i].name+"</h2>");
+    $("#fourSquareResults").append("<p>"+responseData.response.venues[i].location.address+", "+responseData.response.venues[i].location.city+"</p>");
+    $("#fourSquareResults").append("<p>"+"Phone: "+responseData.response.venues[i].contact.formattedPhone+"</p>");
+    var imgTarget=$("<p>");
+    imgTarget.attr("id", ('imgTarget' + i));
+    $("#fourSquareResults").append(imgTarget);
+    console.log("abc");
+
+  }
+}
+
+
