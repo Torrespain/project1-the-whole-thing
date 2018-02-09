@@ -136,7 +136,9 @@ var counter = 0;
 var choiceA = "";
 var choiceB = "";
 var and = "";
-$(".topic").on("click", function compare() {
+$(".thumbnail").on("click", function compare() {
+    console.log("Fuck!")
+    console.log(counter)
     event.preventDefault();
     if (counter === 0 && choiceB !== $(this).data("value")) {
         choiceA = $(this).data("value");

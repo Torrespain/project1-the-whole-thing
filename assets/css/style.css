@@ -3,7 +3,7 @@
    * element that contains the map. */
 
 body {
-    background-image: url("assets/images/sky.jpg");
+    background-image: url("../images/sky.jpg");
     background-repeat: no-repeat;
     background-size: 200%;
     height: 100%;
@@ -14,7 +14,7 @@ body {
 
 .jumbotron {
     text-align: center;
-    background-image: url("assets/images/sky.jpg");
+    background-image: url("../images/sky.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
     background-blend-mode: lighten;
