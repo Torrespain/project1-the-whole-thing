@@ -161,12 +161,23 @@ function getInfoContent(place) {
 function quickSearch(latitude, longitude) {
 
    //https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.latitude=37.784373&location.longitude=-122.407705&token=KJSHU43DGDL7JI6OFUYJ
-   var latitudeLongitude = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.latitude=" + latitude + "&location.longitude=" + longitude + "&token=KJSHU43DGDL7JI6OFUYJ";
-   $.ajax({
-           url: latitudeLongitude,
-           method: "GET"
-       })
-       .then(function(response) {
-           console.log(response);
-       });
+  var latitudeLongitude = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.latitude=" + latitude + "&location.longitude=" + longitude + "&token=KJSHU43DGDL7JI6OFUYJ";
+  $.ajax({
+    url: latitudeLongitude,
+    method: "GET"
+  })
+  .then(function(response) {
+    renderResults(response);
+  });
+}
+
+function renderResults(response) {
+  for (var i = 0; i < 5; i++) {
+    var eventName = $("<h2>");
+    eventName.text(response.events[i].name.text);
+    var eventImage = $("<img>");
+    eventImage.attr("src", response.events[i].logo.url);
+    var eventDescript = $("<p>");
+    $("#myModal").append(eventName, eventImage);
+  }
 }
