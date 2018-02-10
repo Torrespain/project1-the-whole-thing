@@ -14,7 +14,6 @@ var locationRef = database.ref("/locations");
 var topicRef = database.ref("/topics");
 var rangeRef = database.ref("/range");
 var priceRef = database.ref("/price");
-var resultRef = database.ref("/result");
 
 var map;
 var infoWindow;
@@ -24,14 +23,9 @@ var range;
 var price;
 var responseResult;
 
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
-}
+$(document).ready(function() {
+   $("#map-space").show();
+})
 
 
 function initMap() {
@@ -131,13 +125,42 @@ function getInfoContent(place) {
 }
 
 
-// //Eventbrite
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+}
+
+//Eventbrite
+$(".price").on("click", function() {
+    price = $(this).data("value");
+    console.log(price);
+    $(this).addClass("selected").siblings().removeClass("selected")
+
+    database.ref("/price").push({
+        price: price
+    })
+})
+
+
+$(".range").on("click", function() {
+    range = $(this).data("value") + "mi";
+    console.log(range);
+    $(this).addClass("selected").siblings().removeClass("selected")
+
+    database.ref("/range").push({
+        range: range
+    })
+})
+
+
 var counter = 0;
 var choiceA = "";
 var choiceB = "";
 var and = "";
 $(".thumbnail").on("click", function compare() {
-    event.preventDefault();
     if (counter === 0 && choiceB !== $(this).data("value")) {
         choiceA = $(this).data("value");
         console.log("helo", this)
@@ -147,6 +170,7 @@ $(".thumbnail").on("click", function compare() {
         and = "+";
         counter = 0;
     }
+
     console.log("thisisA", choiceA);
     console.log("thisisB", choiceB);
     topic = choiceA + and + choiceB;
@@ -157,28 +181,8 @@ $(".thumbnail").on("click", function compare() {
 });
 
 
-$(".range").on("click", function() {
-    range = $(this).data("value") + "mi";
-    console.log(range);
-
-    database.ref("/range").push({
-        range: range
-    })
-})
-
-
-$(".price").on("click", function() {
-    price = $(this).data("value");
-    console.log(price);
-
-    database.ref("/price").push({
-        price: price
-    })
-})
-
-
-$("#filter-search").on("click", function(e) {
-    e.preventDefault()
+$("#filter-search").on("click", function() {
+    event.preventDefault()
     evenbriteSearch(topic, locationInput, range, price);
 })
 
@@ -193,10 +197,6 @@ function evenbriteSearch(topic, locationInput, range, price) {
         .then(function(response) {
             console.log(response);
             responseResult = response;
-
-            database.ref("/result").push({
-                result: response
-            })
 
             renderResults();
         });
