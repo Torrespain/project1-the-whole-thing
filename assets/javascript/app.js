@@ -174,24 +174,24 @@ function quickSearch(latitude, longitude) {
 
 function renderResults(response) {
   for (var i = 0; i < 5; i++) {
-        var routeButton = $("<button>");  
-        routeButton.addClass("btn btn-primary btn-lg")
-        routeButton.text(response.events[i].name.text);
         var eventName = $("<h2>");
         eventName.text(response.events[i].name.text);
         var eventAddress = $("<h3>");
         eventAddress.text(response.events[i].venue.address.localized_address_display);
+        
         var imageHolder= $("<a>");
-        imageHolder.attr("href", response.events[i].url);
-        imageHolder.attr("target", "_blank");
+        imageHolder.attr("href", "foursquare.html");
+        imageHolder.attr("onclick", "window.open('"+response.events[i].url+"')");
+
         var eventImage = $("<img>");
         eventImage.attr("src", response.events[i].logo.url);
         imageHolder.append(eventImage);
+        
         var eventDescript = $("<p>");
         eventDescript.text("Description: " + response.events[i].description.text);
-        $(".modal-content").append(eventName, eventAddress, imageHolder, eventDescript, routeButton);
+        $(".modal-content").append(eventName, eventAddress, imageHolder, eventDescript);
         eventDescript.text(function(index, currentText){
-            return currentText.substr(0,400)+"...";
+          return currentText.substr(0,400)+"...";
         }); 
   }
 }

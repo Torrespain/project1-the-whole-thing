@@ -208,27 +208,26 @@ function evenbriteSearch(topic, locationInput, range, price) {
 
 function renderResults(response) {
     for (var i = 0; i < 5; i++) {
-        var routeButton = $("<button>");  
-        routeButton.addClass("btn btn-primary btn-lg")
-        routeButton.text(responseResult.events[i].name.text);
         var eventName = $("<h2>");
         eventName.text(responseResult.events[i].name.text);
+        
         var eventAddress = $("<h3>");
         eventAddress.text(responseResult.events[i].venue.address.localized_address_display);
+        
         var imageHolder= $("<a>");
-        imageHolder.attr("href", responseResult.events[i].url);
-        imageHolder.attr("target", "_blank");
+        imageHolder.attr("href", "foursquare.html");
+        imageHolder.attr("onclick", "window.open('"+responseResult.events[i].url+"')");
+        
         var eventImage = $("<img>");
         eventImage.attr("src", responseResult.events[i].logo.url);
         imageHolder.append(eventImage);
+        
         var eventDescript = $("<p>");
         eventDescript.text("Description: " + responseResult.events[i].description.text);
-        $(".modal-content").append(eventName, eventAddress, imageHolder, eventDescript, routeButton);
+        $(".modal-content").append(eventName, eventAddress, imageHolder, eventDescript);
         eventDescript.text(function(index, currentText){
             return currentText.substr(0,400)+"...";
         }); 
-        console.log("abc")
-
   }
 }
 
