@@ -171,6 +171,7 @@ function quickSearch(latitude, longitude) {
   });
 }
 
+
 function renderResults(response) {
   for (var i = 0; i < 5; i++) {
         var eventName = $("<h2>");

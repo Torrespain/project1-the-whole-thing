@@ -143,7 +143,6 @@ $(".price").on("click", function() {
     database.ref("search/price").set({
         price: price
     })
-
 })
 
 
@@ -172,11 +171,9 @@ $(".thumbnail").on("click", function compare() {
         and = "+";
         counter = 0;
     }
-
-    console.log("thisisA", choiceA);
-    console.log("thisisB", choiceB);
     topic = choiceA + and + choiceB;
     console.log(topic);
+    
     database.ref("search/topics").set({
         topic: topic
     })
@@ -282,7 +279,8 @@ function getImages(responseObj) {
         }
     });
 
-    function appendImages(arrOfPhotos) {
+
+function appendImages(arrOfPhotos) {
         console.log(arrOfPhotos)
         for (var i = 0; i < 3; i++) {
             var photoPrefix = arrOfPhotos.response.photos.items[i].prefix;
@@ -309,6 +307,7 @@ function appendFourSquare(responseData) {
         $("#squareTarget").append(imgTarget);
     }
 }
+
 
 $("#food-search").on("click", function() {
     $("#squareTarget").empty();

@@ -53,17 +53,18 @@ body {
 #map-space {
     vertical-align: middle;
     text-align: center;
-    margin-top: 50px;
-    height: 500px;
+    height: 400px;
     width: 100%;
 }
 
 #map {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     height: 75%;
     width: 100%;
     position: relative;
     z-index: 5;
-    margin-bottom: 100px;
     border-radius: 10px;
 }
 
@@ -177,7 +178,7 @@ body {
 
 .price {
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     width: 100%;
     background-color: lightblue;
@@ -187,7 +188,7 @@ body {
 .range {
     display: inline-block;
     float: left;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     width: 100%;
     background-color: #6B6BF4;
@@ -236,7 +237,7 @@ body {
     color: #000;
     font-size: 35px;
     font-weight: 500;
-    padding: 16px 32px;
+    padding: 10px 20px;
     border-radius: 10px;
 }
 
@@ -285,7 +286,8 @@ body {
 }
 
 #myModal, #SquareResults{
-    background: white; opacity: 0.85;
+    background: white; 
+    opacity: 0.85;
     font-weight: bold;
     position: fixed;
     top: 50%;
@@ -296,8 +298,18 @@ body {
     border-radius: 100px;
     padding: 40px;
 }
+
 #SquareResults{
    text-align: center;
    width: auto;
+}
 
+#choice-panel {
+    padding: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#food-search {
+    font-size: 18px;
 }
