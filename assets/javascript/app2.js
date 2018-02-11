@@ -1,19 +1,19 @@
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyBEagO1eUpMcdMCAnHawJnZqjRRF29fgd4",
-    authDomain: "project-1-65a27.firebaseapp.com",
-    databaseURL: "https://project-1-65a27.firebaseio.com",
-    projectId: "project-1-65a27",
-    storageBucket: "project-1-65a27.appspot.com",
-    messagingSenderId: "185964613097"
+    apiKey: "AIzaSyBIXwuFkVitzP-3jhkHEtcAGK7l3-h4zuk",
+    authDomain: "fir-time-3d1bf.firebaseapp.com",
+    databaseURL: "https://fir-time-3d1bf.firebaseio.com",
+    projectId: "fir-time-3d1bf",
+    storageBucket: "fir-time-3d1bf.appspot.com",
+    messagingSenderId: "1095060467631"
 };
 firebase.initializeApp(config);
 
 var database = firebase.database();
-var locationRef = database.ref("/locations");
-var topicRef = database.ref("/topics");
-var rangeRef = database.ref("/range");
-var priceRef = database.ref("/price");
+var locationRef = database.ref("locations");
+var topicRef = database.ref("topics");
+var rangeRef = database.ref("range");
+var priceRef = database.ref("price");
 
 var map;
 var infoWindow;
@@ -22,6 +22,7 @@ var topic;
 var range;
 var price;
 var responseResult;
+var longitudeLatitude;
 
 $(document).ready(function() {
    $("#map-space").show();
@@ -102,7 +103,7 @@ function initMap() {
         locationInput = $("#pac-input").val().trim();
         console.log($("#pac-input").val().trim());
 
-        database.ref("/locations").push({
+        database.ref("search/locations").set({
             locationInput: locationInput
         })
     });
@@ -139,9 +140,10 @@ $(".price").on("click", function() {
     console.log(price);
     $(this).addClass("selected").siblings().removeClass("selected")
 
-    database.ref("/price").push({
+    database.ref("search/price").set({
         price: price
     })
+
 })
 
 
@@ -150,7 +152,7 @@ $(".range").on("click", function() {
     console.log(range);
     $(this).addClass("selected").siblings().removeClass("selected")
 
-    database.ref("/range").push({
+    database.ref("search/range").set({
         range: range
     })
 })
@@ -175,7 +177,7 @@ $(".thumbnail").on("click", function compare() {
     console.log("thisisB", choiceB);
     topic = choiceA + and + choiceB;
     console.log(topic);
-    database.ref("/topics").push({
+    database.ref("search/topics").set({
         topic: topic
     })
 });
@@ -197,7 +199,11 @@ function evenbriteSearch(topic, locationInput, range, price) {
         .then(function(response) {
             console.log(response);
             responseResult = response;
-
+            longitudeLatitude = response.location.latitude +","+response.location.longitude;
+            database.ref("search/longitudeLatitude").set({
+                longitudeLatitude: longitudeLatitude
+            })
+            console.log(longitudeLatitude);
             renderResults();
         });
 }
@@ -220,17 +226,17 @@ function renderResults() {
 
 //Foursquare API and append functions
 //Call function gifSearch() to execute, assing searchTerm and location
-function gifSearch() {
+function gifSearch(food, longitudeLatitude) {
     var queryURL = "https://api.foursquare.com/v2/venues/search";
     $.ajax({
         url: queryURL,
         data: {
             client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
             client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
-            ll: "37.77,-122.42",
-            query: "",
+            ll: longitudeLatitude,
+            query: food,
             v: "20180206",
-            limit: 3
+            limit: 5
         },
         cache: false,
         type: "GET",
@@ -287,13 +293,28 @@ function getImages(responseObj) {
 function appendFourSquare(responseData) {
     for (var i = 0; i < 3; i++) {
         console.log(responseData.response.venues[i].name);
-        $("#fourSquareResults").append("<h2>" + responseData.response.venues[i].name + "</h2>");
-        $("#fourSquareResults").append("<p>" + responseData.response.venues[i].location.address + ", " + responseData.response.venues[i].location.city + "</p>");
-        $("#fourSquareResults").append("<p>" + "Phone: " + responseData.response.venues[i].contact.formattedPhone + "</p>");
+        $("#squareTarget").append("<h2>" + responseData.response.venues[i].name + "</h2>");
+        $("#squareTarget").append("<p>" + responseData.response.venues[i].location.address + ", " + responseData.response.venues[i].location.city + "</p>");
+        $("#squareTarget").append("<p>" + "Phone: " + responseData.response.venues[i].contact.formattedPhone + "</p>");
         var imgTarget = $("<p>");
         imgTarget.attr("id", ('imgTarget' + i));
-        $("#fourSquareResults").append(imgTarget);
-        console.log("abc");
-
+        $("#squareTarget").append(imgTarget);
     }
 }
+
+$("#food-search").on("click", function() {
+    $("#squareTarget").empty();
+    database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+
+        event.preventDefault()
+
+        console.log(snapshot.val().longitudeLatitude.longitudeLatitude);
+        var food= $("#food-input").val().trim();
+        var longitudeLatitude = snapshot.val().longitudeLatitude.longitudeLatitude
+        console.log(food)
+        gifSearch(food, longitudeLatitude);
+
+    }, function(errorObsject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
+})

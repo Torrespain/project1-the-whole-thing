@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">    
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1><b>The Whole Thing</b></h1>
+            <h2><b>Fun Engine</b></h2>
+            <h2><b>Power Up Your Plan</b></h2>
+        </div>
+
+<div class="panel panel-success">
+    <div class="panel-heading " >
+      <h3 class="panel-title"><strong>Choose your food or drink!</strong></h3>
+    </div>
+    <div class="panel-body">
+        <form>
+          <div class="form-group">
+            <label for="foodDrinkChoice">Choose your food or drink!</label>
+            <input class="form-control" id="food-input" type="text">
+          </div>
+        </form>
+    </div>
+        
+     <div class="row">
+         <div class="col-md-5"></div>
+        <div class="col-xs-12 col-sm-12 col-md-2">
+         
+                <button id="food-search" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#SquareResults">Now Search!</button>
+    
+            <div class="col-md-5"></div>
+        </div>
+    </div>
+    </div>
+</div>
+        
+
+    <div id="SquareResults" class="modal fade" role="dialog">
+        <button type="button" id=modalClose class="close" data-dismiss="modal">&times;</button>
+
+        <div id="squareTarget">
+            
+        </div>
+        <button type="button" id=modalClose class="close" data-dismiss="modal">&times;</button>
+        
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/app2.js"></script>
+</body>
+
+</html>
