@@ -173,11 +173,21 @@ function quickSearch(latitude, longitude) {
 
 function renderResults(response) {
   for (var i = 0; i < 5; i++) {
-    var eventName = $("<h2>");
-    eventName.text(response.events[i].name.text);
-    var eventImage = $("<img>");
-    eventImage.attr("src", response.events[i].logo.url);
-    var eventDescript = $("<p>");
-    $("#myModal").append(eventName, eventImage);
+        var eventName = $("<h2>");
+        eventName.text(response.events[i].name.text)
+        var imageHolder= $("<a>");
+        imageHolder.attr("href", response.events[i].url);
+        imageHolder.attr("target", "_blank");
+
+        var eventImage = $("<img>");
+        eventImage.attr("src", response.events[i].logo.url);
+        
+        imageHolder.append(eventImage);
+
+        var eventDescript = $("<p>");
+        eventDescript.attr("data-role","collapsible");
+        eventDescript.text("Description: " + response.events[i].description.text)
+        
+        $("#myModal").append(eventName, imageHolder, eventDescript);
   }
 }
