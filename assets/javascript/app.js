@@ -161,7 +161,7 @@ function getInfoContent(place) {
 function quickSearch(latitude, longitude) {
 
    //https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.latitude=37.784373&location.longitude=-122.407705&token=KJSHU43DGDL7JI6OFUYJ
-  var latitudeLongitude = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.latitude=" + latitude + "&location.longitude=" + longitude + "&token=KJSHU43DGDL7JI6OFUYJ";
+  var latitudeLongitude = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.latitude=" + latitude + "&location.longitude=" + longitude + "&token=KJSHU43DGDL7JI6OFUYJ&expand=venue";
   $.ajax({
     url: latitudeLongitude,
     method: "GET"
@@ -174,21 +174,24 @@ function quickSearch(latitude, longitude) {
 
 function renderResults(response) {
   for (var i = 0; i < 5; i++) {
+        var routeButton = $("<button>");  
+        routeButton.addClass("btn btn-primary btn-lg")
+        routeButton.text(response.events[i].name.text);
         var eventName = $("<h2>");
-        eventName.text(response.events[i].name.text)
+        eventName.text(response.events[i].name.text);
+        var eventAddress = $("<h3>");
+        eventAddress.text(response.events[i].venue.address.localized_address_display);
         var imageHolder= $("<a>");
         imageHolder.attr("href", response.events[i].url);
         imageHolder.attr("target", "_blank");
-
         var eventImage = $("<img>");
         eventImage.attr("src", response.events[i].logo.url);
-        
         imageHolder.append(eventImage);
-
         var eventDescript = $("<p>");
-        eventDescript.attr("data-role","collapsible");
-        eventDescript.text("Description: " + response.events[i].description.text)
-        
-        $("#myModal").append(eventName, imageHolder, eventDescript);
+        eventDescript.text("Description: " + response.events[i].description.text);
+        $(".modal-content").append(eventName, eventAddress, imageHolder, eventDescript, routeButton);
+        eventDescript.text(function(index, currentText){
+            return currentText.substr(0,400)+"...";
+        }); 
   }
 }

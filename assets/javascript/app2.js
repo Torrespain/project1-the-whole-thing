@@ -188,7 +188,7 @@ $("#filter-search").on("click", function() {
 
 //Requesting info and adding the value of every button to the url
 function evenbriteSearch(topic, locationInput, range, price) {
-    var queryURL = "https://www.eventbriteapi.com/v3/events/search/?q=" + topic + "&sort_by=date&location.address=" + locationInput + "&location.within=" + range + "&price=" + price + "&token=KJSHU43DGDL7JI6OFUYJ";
+    var queryURL = "https://www.eventbriteapi.com/v3/events/search/?q=" + topic + "&sort_by=date&location.address=" + locationInput + "&location.within=" + range + "&price=" + price + "&token=KJSHU43DGDL7JI6OFUYJ&expand=venue";
     $.ajax({
             url: queryURL,
             method: "GET"
@@ -206,27 +206,30 @@ function evenbriteSearch(topic, locationInput, range, price) {
 }
 
 
-function renderResults() {
+function renderResults(response) {
     for (var i = 0; i < 5; i++) {
+        var routeButton = $("<button>");  
+        routeButton.addClass("btn btn-primary btn-lg")
+        routeButton.text(responseResult.events[i].name.text);
         var eventName = $("<h2>");
-        eventName.text(responseResult.events[i].name.text)
+        eventName.text(responseResult.events[i].name.text);
+        var eventAddress = $("<h3>");
+        eventAddress.text(responseResult.events[i].venue.address.localized_address_display);
         var imageHolder= $("<a>");
         imageHolder.attr("href", responseResult.events[i].url);
         imageHolder.attr("target", "_blank");
-
         var eventImage = $("<img>");
         eventImage.attr("src", responseResult.events[i].logo.url);
-        
         imageHolder.append(eventImage);
-
         var eventDescript = $("<p>");
-        eventDescript.attr("data-role","collapsible");
-        eventDescript.text("Description: " + responseResult.events[i].description.text)
-        
-        $("#myModal").append(eventName, imageHolder, eventDescript);
+        eventDescript.text("Description: " + responseResult.events[i].description.text);
+        $(".modal-content").append(eventName, eventAddress, imageHolder, eventDescript, routeButton);
+        eventDescript.text(function(index, currentText){
+            return currentText.substr(0,400)+"...";
+        }); 
         console.log("abc")
 
-    }
+  }
 }
 
 //Foursquare API and append functions

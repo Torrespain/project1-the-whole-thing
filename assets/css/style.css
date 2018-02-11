@@ -233,6 +233,10 @@ body {
     box-shadow: 20px 20px 40px 3px black;
 }
 
+.thumbnail:active {
+    transform: translateY(4px);
+}
+
 .text {
     color: #000;
     font-size: 35px;
@@ -312,4 +316,13 @@ body {
 
 #food-search {
     font-size: 18px;
+}
+
+.modalClose {
+font-size: 96px;
+box-shadow: 12px 4px 7px 2px black;
+text-align: center;
+
+
+
 }
