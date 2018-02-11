@@ -207,6 +207,7 @@ function evenbriteSearch(topic, locationInput, range, price) {
 
 
 function renderResults(response) {
+    $(".modal-content").empty();
     for (var i = 0; i < 5; i++) {
         var eventName = $("<h2>");
         eventName.text(responseResult.events[i].name.text);
@@ -232,8 +233,8 @@ function renderResults(response) {
 }
 
 //Foursquare API and append functions
-//Call function gifSearch() to execute, assing searchTerm and location
-function gifSearch(food, longitudeLatitude) {
+//Call function foursquareSearch() to execute, assing searchTerm and location
+function foursquareSearch(food, longitudeLatitude) {
     var queryURL = "https://api.foursquare.com/v2/venues/search";
     $.ajax({
         url: queryURL,
@@ -299,6 +300,7 @@ function appendImages(arrOfPhotos) {
 
 
 function appendFourSquare(responseData) {
+    $("#squareTarget").empty();
     for (var i = 0; i < 3; i++) {
         console.log(responseData.response.venues[i].name);
         $("#squareTarget").append("<h2>" + responseData.response.venues[i].name + "</h2>");
@@ -321,7 +323,7 @@ $("#food-search").on("click", function() {
         var food= $("#food-input").val().trim();
         var longitudeLatitude = snapshot.val().longitudeLatitude.longitudeLatitude
         console.log(food)
-        gifSearch(food, longitudeLatitude);
+        foursquareSearch(food, longitudeLatitude);
 
     }, function(errorObsject) {
       console.log("Errors handled: " + errorObject.code);

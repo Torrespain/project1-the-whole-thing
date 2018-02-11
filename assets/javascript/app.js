@@ -173,6 +173,7 @@ function quickSearch(latitude, longitude) {
 
 
 function renderResults(response) {
+  $(".modal-content").empty();
   for (var i = 0; i < 5; i++) {
         var eventName = $("<h2>");
         eventName.text(response.events[i].name.text);
