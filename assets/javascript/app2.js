@@ -234,7 +234,7 @@ function renderResults(response) {
 
 //Foursquare API and append functions
 //Call function foursquareSearch() to execute, assing searchTerm and location
-function foursquareSearch(food, longitudeLatitude) {
+function foursquareSearch(food, longitudeLatitude) { // first ajax call
     var queryURL = "https://api.foursquare.com/v2/venues/search";
     $.ajax({
         url: queryURL,
@@ -244,7 +244,7 @@ function foursquareSearch(food, longitudeLatitude) {
             ll: longitudeLatitude,
             query: food,
             v: "20180206",
-            limit: 5
+            limit: 3
         },
         cache: false,
         type: "GET",
@@ -260,42 +260,45 @@ function foursquareSearch(food, longitudeLatitude) {
 };
 
 
-function getImages(responseObj) {
-    var photoId = responseObj.response.venues[0].id;
-    var queryURL = "https://api.foursquare.com/v2/venues/" + photoId + "/photos";
-    $.ajax({
-        url: queryURL,
-        data: {
-            client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
-            client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
-            v: "20180206",
-            limit: 3
-        },
-        cache: false,
-        type: "GET",
-        success: function(photoResponse) {
-            console.log(photoResponse);
-            appendImages(photoResponse);
-        },
-        error: function(xhr) {
-            console.log(xhr);
-        }
-    });
+function getImages(responseObj) { // second ajax call to obtain pictures from the first call
+    var counter=2;  // This counter is going to iterate through the results
+    for (var i = 0; i < 3; i++) {
+        var photoId = responseObj.response.venues[i].id;
+        var queryURL = "https://api.foursquare.com/v2/venues/" + photoId + "/photos";
+        $.ajax({
+            url: queryURL,
+            data: {
+                client_id: "UYCPKGBHUK5DSQSOGFBATS2015CFIZM1CELCN4AIYPT1LEBH",
+                client_secret: "EBLDOOVW2FIZBGC0PH3M2NATAUCABKHWRVIC3YFRW1SOTKKF",
+                v: "20180206",
+                limit: 1
+            },
+            cache: false,
+            type: "GET",
+            success: function(photoResponse) {
+                console.log(photoResponse);
+                appendImages(photoResponse);
+            },
+            error: function(xhr) {
+                console.log(xhr);
+            }
+        });
 
-
-function appendImages(arrOfPhotos) {
-        console.log(arrOfPhotos)
-        for (var i = 0; i < 3; i++) {
-            var photoPrefix = arrOfPhotos.response.photos.items[i].prefix;
+        
+        function appendImages(arrOfPhotos){
+            console.log(arrOfPhotos)
+            var photoPrefix = arrOfPhotos.response.photos.items[0].prefix;
             var photoSize = "400x300";
-            var photoSuffix = arrOfPhotos.response.photos.items[i].suffix;
+            var photoSuffix = arrOfPhotos.response.photos.items[0].suffix;
             var photoURL = photoPrefix + photoSize + photoSuffix;
             var fourSquarePhoto = $("<img>");
             fourSquarePhoto.attr("src", photoURL);
             fourSquarePhoto.attr("");
-            $("#imgTarget" + i).append(fourSquarePhoto);
+            $("#imgTarget" + counter).append(fourSquarePhoto[0]);
+            counter--; // -- insted of ++ to invert pictures from the response 
         }
     }
+
 }
 
 
