@@ -8,7 +8,7 @@ David, Javier, Joyce, Ricky
 
 Motivation:
 
-Our goal was to build a product relevant to our daily lives and we found that we all shared an interest in how we spend our free time. As a result we narrowed our idea to an app that could assist in decision making on how to get the most out of going out within a given location and getting all of one's needs met when going out; access to events, dining and drinking.
+Our goal was to build a product relevant to our daily lives. We found that we all shared the common interest of attending events, eating out and going out to drink. As a result, we narrowed our idea down to an app that could find out how to do all three of those quickly and simply.
 
 
 
