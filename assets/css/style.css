@@ -29,7 +29,7 @@ body {
     margin-top: 150px;
 }
 
-#quick-search {
+#quick-search, #foodPanel, #foodHeader{
     width: 100%;
     height: auto;
     font-size: inherit;
@@ -38,6 +38,18 @@ body {
     background-color: #A9E5FF;
     color: #fff;
     opacity: 1.0;
+}
+
+#food-input{
+    font-size: 22px;
+    color: #A9E5FF;
+    font-weight: bold;
+}
+
+#foodHeader{
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 0.85;
 }
 
 #search-filter {
@@ -269,8 +281,8 @@ body {
     background-color: #7EE9FF;
 }
 
-#filter-search {
-    position: absolute;
+#filter-search, #food-search {
+    
     margin: 10px 0px 50px 0px;
     text-align: center;
     width: 220px;
@@ -281,10 +293,15 @@ body {
     padding: 6px 12px;
     color: #fff;
     background-color: #F47C77;
+    align-content: center;
 
 }
+#buttonContainer, #food-search{
+    align-content: center;
+    text-align: center;
+}
 
-#filter-search:hover {
+#filter-search:hover , #food-search:hover {
     background-color: #F4CF77;
     box-shadow: 10px 10px 45px 5px #D3D3D3;
 }

@@ -18,31 +18,26 @@
             <h2><b>Power Up Your Plan</b></h2>
         </div>
 
-    <div class="panel panel-success">
-        <div class="panel-heading " >
-          <h3 class="panel-title"><strong>Choose your food or drink!</strong></h3>
+        <div id="foodPanel" class="panel">
+            <div class="panel-heading" >
+              <h3  id="foodHeader" class="panel"><strong>Choose your food or drink!</strong></h3>
+            </div>
+            <div id="choice-panel" class="panel-body" >
+                <form>
+                  <div class="form-group">
+                    <label for="foodDrinkChoice"></label>
+                    <input class="form-control" id="food-input" type="text">
+                  </div>
+                </form>
+            </div> 
         </div>
-        <div id="choice-panel" class="panel-body" >
-            <form>
-              <div class="form-group">
-                <label for="foodDrinkChoice"></label>
-                <input class="form-control" id="food-input" type="text">
-              </div>
-            </form>
-        </div>
-            
-         <div class="row">
-             <div class="col-md-5"></div>
-                <div class="col-xs-12 col-sm-12 col-md-2">
-                 
-                        <button id="food-search" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#SquareResults">Now Search!</button>
-            
-                    <div class="col-md-5"></div>
+
+            <div class="row">
+                <div id="buttonContainer" class="col-xs-12 col-sm-12 col-md-2">
+                    <button id="food-search" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#SquareResults">Now Search!</button>
                 </div>
             </div>
-        </div>
     </div>
-        
 
     <div id="SquareResults" class="modal fade" role="dialog">
         <button type="button" id=modalClose class="close" data-dismiss="modal">&times;</button>
