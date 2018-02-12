@@ -261,7 +261,7 @@ function foursquareSearch(food, longitudeLatitude) { // first ajax call
 
 
 function getImages(responseObj) { // second ajax call to obtain pictures from the first call
-    var counter=2;  // This counter is going to iterate through the results
+    var counter=0;  // This counter is going to iterate through the results
     for (var i = 0; i < 3; i++) {
         var photoId = responseObj.response.venues[i].id;
         var queryURL = "https://api.foursquare.com/v2/venues/" + photoId + "/photos";
@@ -295,7 +295,7 @@ function getImages(responseObj) { // second ajax call to obtain pictures from th
             fourSquarePhoto.attr("src", photoURL);
             fourSquarePhoto.attr("");
             $("#imgTarget" + counter).append(fourSquarePhoto[0]);
-            counter--; // -- insted of ++ to invert pictures from the response 
+            counter++;
         }
     }
 

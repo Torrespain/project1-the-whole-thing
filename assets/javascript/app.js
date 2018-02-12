@@ -1,11 +1,11 @@
 // Initialize Firebase
 var config = {
-   apiKey: "AIzaSyBEagO1eUpMcdMCAnHawJnZqjRRF29fgd4",
-   authDomain: "project-1-65a27.firebaseapp.com",
-   databaseURL: "https://project-1-65a27.firebaseio.com",
-   projectId: "project-1-65a27",
-   storageBucket: "project-1-65a27.appspot.com",
-   messagingSenderId: "185964613097"
+  apiKey: "AIzaSyBIXwuFkVitzP-3jhkHEtcAGK7l3-h4zuk",
+  authDomain: "fir-time-3d1bf.firebaseapp.com",
+  databaseURL: "https://fir-time-3d1bf.firebaseio.com",
+  projectId: "fir-time-3d1bf",
+  storageBucket: "fir-time-3d1bf.appspot.com",
+  messagingSenderId: "1095060467631"
 };
 firebase.initializeApp(config);
 
@@ -167,6 +167,11 @@ function quickSearch(latitude, longitude) {
     method: "GET"
   })
   .then(function(response) {
+    longitudeLatitude = latitude +","+longitude;
+    console.log(longitudeLatitude);
+    database.ref("search/longitudeLatitude").set({
+      longitudeLatitude: longitudeLatitude
+    })
     renderResults(response);
   });
 }
